@@ -13,32 +13,18 @@ use OmniAuth::Builder do
   provider :twitter, config['identifierTW'], config['secretTW']
 end
 
-get '/auth/facebook/callback' do
+
+
+get '/auth/:name/callback' do
   session[:auth] = @auth = request.env['omniauth.auth']
   session[:name] = @auth['info'].name
   session[:image] = @auth['info'].image
   flash[:notice] = 
-        %Q{<div class="success">  AVISO: Usted se ha autentificado como #{session[:name]} de forma satisfactoria.</div>}
+        %Q{<div class="success">Authenticated as #{@auth['info'].name}.</div>}
   redirect '/'
 end
 
-get '/auth/google_oauth2/callback' do
-  session[:auth] = @auth = request.env['omniauth.auth']
-  session[:name] = @auth['info'].name
-  session[:image] = @auth['info'].image
-  flash[:notice] = 
-        %Q{<div class="success">  AVISO: Usted se ha autentificado como #{session[:name]} de forma satisfactoria.</div>}
-  redirect '/'
-end
 
-get '/auth/github/callback' do
-  session[:auth] = @auth = request.env['omniauth.auth']
-  session[:name] = @auth['info'].nickname
-  session[:image] = @auth['info'].image
-  flash[:notice] = 
-        %Q{<div class="success">  AVISO: Usted se ha autentificado como #{session[:name]} de forma satisfactoria.</div>}
-  redirect '/'
-end
 
 get '/auth/failure' do
   flash[:notice] = params[:message] 
