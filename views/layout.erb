@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Analizador jison</title>
+    <link rel="icon" type="image/jpg" href="favicon.jpg" />
+    <link rel="stylesheet" href="/styles.css" type="text/css" media="screen" charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <link rel="stylesheet" href="lib/ambiance.css">
+    <script src="lib/codemirror.js"></script>
+    <script src="mode/pascal/pascal.js"></script>
+  </head>
+  <body>
+    <center><img src="logo.png" alt="Smiley face" width="640" height="110"></center>
+    <br>
+    <div id='cssmenu'>
+      <ul>
+         <li><a href="/"  title="Home" <%=current?("/")%>><span>Home</span></a></li>
+         <li><a href="/grammar"  title="Grammar" <%=current?("/grammar")%>><span>Gramática</span></a></li>
+         <li><a href="/tests"  title="Tests" <%=current?("/tests")%>><span>Tests</span></a></li>
+         <li><a href='https://bitbucket.org/alu4073/ambitopl0'><span>Repositorio</span></a></li>
+         <li class='has-sub last'><a href=''><span>Visítanos en Github</span></a>
+            <ul>
+               <li><a href='https://github.com/alu4102'><span>Sara Martín</span></a></li>
+               <li class='last'><a href='https://github.com/alu4073'><span>Adrián Glez</span></a></li>
+            </ul>
+         </li>
+         <li class='active has-sub last'><a href=''><span>Para guardar inicie sesión</span></a>
+            <ul>
+               <li><a href="/auth/google_oauth2"  title="Google" <%=current?("/auth/google_oauth2")%>><span>Usando Google</span></a></li>
+               <li class='last'><a href="/auth/github"  title="Github" <%=current?("/auth/github")%>><span>Usando GitHub</span></a></li>
+            </ul>
+         </li>
+      </ul>
+      </div>  
+    <%= yield %>
+  </body>
+</html>
+

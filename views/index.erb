@@ -1,0 +1,55 @@
+<div id="content">
+  <nav>
+  <ul>
+    <div id="flash"><%= flash[:notice] if flash[:notice]%></div> 
+    <% programs.each do |p| %>
+      <li><a href="<%= p.name %>" <%=current?('/'+p.name)%>><%= p.name %></a></li>
+    <% end %>    
+  </ul>
+
+  </nav>
+  <p> Para analizar un código introdúzcalo en el cuadro de abajo. </p> 
+  <form action="/save" method="post">
+     <textarea id="input" name="input" autofocus cols="80" rows="10">
+<%= source %>
+     </textarea>
+     <br/>
+     <label for="saveas"> Para guardar el código anterior introduzca un nombre para el mismo y presione INTRO: <input id="saveas" type="text" name="fname" title="name" pattern="\w+" /></label>
+  </form>
+  <br/>
+  <form action="/userprograms" method="post">  
+     <label for="loadas"> Para ver los programas de un usuario introduzca su nombre y presione INTRO: <input id="loadas" type="text" name="fname" title="name" /></label>
+  </form>
+  
+  <p> O seleccione un fichero con su código. </p>
+  <p>
+    <input type="file" id="examples" />
+  </p>
+  <br>
+  <button id="parse" type="button" class="myButton">Analizar</button>
+  <br>
+  <br>
+  <div id="arbol_generado" class="hidden">
+  <p > Árbol generado: </p>    
+  <span><textarea id="output" name="input" autofocus cols="80" rows="10" class="hidden">
+     </textarea></span> <!-- Output goes here! -->    
+  </div>
+</div>
+
+<!-- Script para el CodeMirror -->
+<script>
+    // Generar un editor CodeMirror a partir del textarea INPUT (se borra y se reemplaza).
+    var editor = CodeMirror.fromTextArea(document.getElementById("input"), {
+      lineNumbers: true,
+      viewportMargin: Infinity,
+      theme: "ambiance"
+    });
+    var editor_output = CodeMirror.fromTextArea(document.getElementById("output"), {
+      lineNumbers: true,
+      viewportMargin: Infinity,
+      theme: "ambiance"
+    });
+</script>
+
+<script type="text/javascript" src="calculator.js"></script>
+<script type="text/javascript" src="main.js"></script>
