@@ -2,6 +2,7 @@ require 'omniauth-oauth2'
 require 'omniauth-google-oauth2'
 require 'omniauth-github'
 require 'omniauth-facebook'
+require 'omniauth-twitter'
 
 
 use OmniAuth::Builder do
@@ -9,6 +10,7 @@ use OmniAuth::Builder do
   provider :google_oauth2, config['identifier'], config['secret']
   provider :github, config['identifierGH'], config['secretGH']
   provider :facebook, config['identifierFB'], config['secretFB']
+  provider :twitter, config['identifierTW'], config['secretTW']
 end
 
 get '/auth/facebook/callback' do

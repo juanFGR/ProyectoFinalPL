@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.0.0'
 
 gem "sinatra"
 gem "sinatra-contrib"
@@ -8,8 +8,10 @@ gem "thin"
 gem 'data_mapper'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-facebook'
 gem 'omniauth-github'
+gem 'omniauth-openid'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 gem 'sass'
 
 group :development do
