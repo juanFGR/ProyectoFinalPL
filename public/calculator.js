@@ -74,9 +74,9 @@
 var calculator = (function(){
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"prog":3,"asig":4,"fecha":5,"bloquePreg":6,"DOT":7,"ASIGNA":8,"FECHA":9,"PREGUNTA":10,"respuestas":11,"RESPUESTA":12,"enunPreg":13,"PREG":14,"math":15,"enunResp":16,"NUM":17,"SENTENCIA":18,"+":19,"-":20,"*":21,"/":22,"^":23,"(":24,")":25,"%":26,"RAIZ":27,"$accept":0,"$end":1},
-terminals_: {2:"error",7:"DOT",8:"ASIGNA",9:"FECHA",10:"PREGUNTA",12:"RESPUESTA",14:"PREG",17:"NUM",18:"SENTENCIA",19:"+",20:"-",21:"*",22:"/",23:"^",24:"(",25:")",26:"%",27:"RAIZ"},
-productions_: [0,[3,4],[4,1],[5,1],[6,2],[6,3],[11,0],[11,2],[13,3],[16,1],[15,1],[15,1],[15,1],[15,3],[15,3],[15,3],[15,3],[15,5],[15,2],[15,4]],
+symbols_: {"error":2,"prog":3,"asig":4,"fecha":5,"bloquePreg":6,"DOT":7,"ASIGNA":8,"FECHA":9,"PREGUNTA":10,"respuestas":11,"RESPUESTACORRECTA":12,"RESPUESTAINCORRECTA":13,"enunPreg":14,"PREG":15,"math":16,"enunResp":17,"NUM":18,"SENTENCIA":19,"+":20,"-":21,"*":22,"/":23,"^":24,"(":25,")":26,"%":27,"RAIZ":28,"$accept":0,"$end":1},
+terminals_: {2:"error",7:"DOT",8:"ASIGNA",9:"FECHA",10:"PREGUNTA",12:"RESPUESTACORRECTA",13:"RESPUESTAINCORRECTA",15:"PREG",18:"NUM",19:"SENTENCIA",20:"+",21:"-",22:"*",23:"/",24:"^",25:"(",26:")",27:"%",28:"RAIZ"},
+productions_: [0,[3,4],[4,1],[5,1],[6,2],[6,3],[11,0],[11,2],[11,2],[14,3],[17,1],[16,1],[16,1],[16,1],[16,3],[16,3],[16,3],[16,3],[16,5],[16,2],[16,4]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -115,67 +115,72 @@ case 7:
         
 break;
 case 8: 
+          if ($$[$0]) this.$ = [$$[$0-1]].concat($$[$0]); 
+          else this.$ = $$[$0-1];
+        
+break;
+case 9: 
           this.$ = $$[$0-1];
       
 break;
-case 9: 
+case 10: 
           this.$ = $$[$0];
       
 break;
-case 10:   /* Inyectar numero en HTML*/
+case 11:   /* Inyectar numero en HTML*/
           this.$ = $$[$0]; 
           
       
 break;
-case 11:   /* Inyectar palabra en HTML*/
+case 12:   /* Inyectar palabra en HTML*/
           this.$ = $$[$0]; 
          
       
 break;
-case 12:   /* Inyectar*/
+case 13:   /* Inyectar*/
           this.$ = $$[$0]; 
           
       
 break;
-case 13:   /* Inyectar suma en HTML*/
+case 14:   /* Inyectar suma en HTML*/
           this.$ = $$[$0-2]; 
           
       
 break;
-case 14:   /* Inyectar resta en HTML*/
+case 15:   /* Inyectar resta en HTML*/
           this.$ = $$[$0-2]; 
          
       
 break;
-case 15:   /* Inyectar multiplicación en HTML*/
+case 16:   /* Inyectar multiplicación en HTML*/
           this.$ = $$[$0-2]; 
          
       
 break;
-case 16:   /* Inyectar división en HTML*/
+case 17:   /* Inyectar división en HTML*/
           this.$ = $$[$0-2]; 
           
       
 break;
-case 17:   /* Inyectar elevado en HTML*/
+case 18:   /* Inyectar elevado en HTML*/
           this.$ = $$[$0-4]; 
          
       
 break;
-case 18:   /* Inyectar modulo en HTML*/
+case 19:   /* Inyectar modulo en HTML*/
           this.$ = $$[$0-1]; 
           
       
 break;
-case 19:   /* Inyectar modulo en HTML*/
+case 20:   /* Inyectar modulo en HTML*/
           this.$ = $$[$0-3]; 
          
       
 break;
 }
 },
-table: [{3:1,4:2,8:[1,3]},{1:[3]},{5:4,9:[1,5]},{9:[2,2]},{6:6,10:[1,7]},{10:[2,3]},{7:[1,8]},{7:[2,6],10:[2,6],11:9,12:[1,10]},{1:[2,1]},{6:11,7:[2,4],10:[1,7]},{7:[2,6],10:[2,6],11:12,12:[1,10]},{7:[2,5]},{7:[2,7],10:[2,7]}],
-defaultActions: {3:[2,2],5:[2,3],8:[2,1],11:[2,5]},
+table: [{3:1,4:2,8:[1,3]},{1:[3]},{5:4,9:[1,5]},{9:[2,2]},{6:6,10:[1,7]},{10:[2,3]},{7:[1,8]},{7:[2,6],10:[2,6],11:9,12:[1,10],13:[1,11]},{1:[2,1]},{6:12,7:[2,4],10:[1,7]},{7:[2,6],10:[2,6],11:13,12:[1,10],13:[1,11]},{7:[2,6],10:[2,6],11:14,12:[1,10],13:[1,11]},{7:[2,5]},{7:[2,7],10:[2,7]},{7:[2,8],10:[2,8]}],
+defaultActions: {3:[2,2],5:[2,3],8:[2,1],12:[2,5]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -743,22 +748,20 @@ case 2: fe = yy_.yytext.replace(/\/[f][f]|\n/g,""); yy_.yytext = {fecha: fe}; re
 break;
 case 3: preg = yy_.yytext.replace(/\/[f][p]|\n/g,""); yy_.yytext = {pregunta: preg}; return 10; 
 break;
-case 4: resp = yy_.yytext.replace(/\/[f][r]|\n/g,""); yy_.yytext = {respuesta: resp}; return 12; 
+case 4: resp = yy_.yytext.replace(/\/[r][c]|\n/g,""); yy_.yytext = {respuesta: resp, type: "correct"}; return 12; 
 break;
-case 5:return 17
+case 5: resp = yy_.yytext.replace(/\/[r][i]|\n/g,""); yy_.yytext = {respuesta: resp, type: "incorrect"}; return 13; 
 break;
-case 6:return 27
+case 6:return yy_.yytext;
 break;
-case 7:return yy_.yytext;
+case 7:return 7
 break;
-case 8:return 7
-break;
-case 9:return 'EOF'
+case 8:return 'EOF'
 break;
 }
 },
-rules: [/^(?:\s+|#.*)/,/^(?:(.)*\/fa\b)/,/^(?:(.)*\/ff\b)/,/^(?:(.)*\/fp\b)/,/^(?:(.)*\/fr\b)/,/^(?:\b\d+(\.\d*)?([eE][-+]?\d+)?\b)/,/^(?:sqrt\b)/,/^(?:[-*/+^!%=();])/,/^(?:(.))/,/^(?:$)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9],"inclusive":true}}
+rules: [/^(?:\s+|#.*)/,/^(?:(.)*\/fa\b)/,/^(?:(.)*\/ff\b)/,/^(?:(.)*\/fp\b)/,/^(?:(.)*\/rc\b)/,/^(?:(.)*\/ri\b)/,/^(?:[-*/+^!%=();])/,/^(?:(.))/,/^(?:$)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8],"inclusive":true}}
 };
 return lexer;
 })();

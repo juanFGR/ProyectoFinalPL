@@ -15,6 +15,25 @@ $(document).ready(function() {
       var editor = $('.CodeMirror')[0].CodeMirror;
       var source = editor.getValue();
       var result = calculator.parse(source);
+      $('#asignatura').html(result[0].asignatura);
+      $('#fecha').html(result[1].fecha);
+      var bloquePreguntasResp = "";
+      for (i = 0; i < result[2].length; i++) {
+          var pregunta = result[2][i].pregunta;
+          var respuesta = result[2][i].respuesta;
+          if (pregunta) {
+            bloquePreguntasResp = bloquePreguntasResp.concat('<h3>\n' + pregunta + '\n</h3>');
+          } else if (respuesta) {
+            var tipo = result[2][i].type;
+            if (tipo == "correct") {
+              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespCorr"><h3>\n' + respuesta + '\n</h3></div>');
+            } else if (tipo == "incorrect") {
+              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespIncorr"><h3>\n' + respuesta + '\n</h3></div>');
+            }
+          }    
+      }
+      $('#preguntas').html(bloquePreguntasResp);
+    
       editor_output.setValue(JSON.stringify(result,undefined,2));
       $('#output').html(JSON.stringify(result,undefined,2));
     } catch (e) {

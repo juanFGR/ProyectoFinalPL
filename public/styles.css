@@ -21,6 +21,14 @@ header h1 {
   background-size: 5% 70%;
   padding-left: 84px; }
 
+.RespCorr {
+  color: #00FF00;
+}
+
+.RespIncorr {
+  color: #FF0000;
+}
+
 nav {
   font-weight: bold; }
   nav ul {

@@ -148,17 +148,18 @@ bloquePreg
       }
     ;
 
-
-
-
 respuestas
     : /* empty */
-    | RESPUESTA respuestas
+    | RESPUESTACORRECTA respuestas
         { 
           if ($2) $$ = [$1].concat($2); 
           else $$ = $1;
         }
-
+    | RESPUESTAINCORRECTA respuestas
+        { 
+          if ($2) $$ = [$1].concat($2); 
+          else $$ = $1;
+        }
     ;
 
 enunPreg 
