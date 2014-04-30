@@ -15,24 +15,31 @@ $(document).ready(function() {
       var editor = $('.CodeMirror')[0].CodeMirror;
       var source = editor.getValue();
       var result = calculator.parse(source);
+      
+       
+	var preguntaCont=0;
+	
       $('#asignatura').html(result[0].asignatura);
       $('#fecha').html(result[1].fecha);
       var bloquePreguntasResp = "";
       var numResp = 0;
       for (i = 0; i < result[2].length; i++) {
+	
           var pregunta = result[2][i].pregunta;
           var respuesta = result[2][i].respuesta;
           if (pregunta) {
-            bloquePreguntasResp = bloquePreguntasResp.concat('<h3>\n' + pregunta + '\n</h3>');
+	    preguntaCont++;
+	    $("body").append("<div id=Question"+preguntaCont+"></div>");   
+            $("#Question"+preguntaCont+"").append('<h2>\n' + pregunta + '\n</h2>');
             numResp = 1;
           } else if (respuesta) {
             var tipo = result[2][i].type;
             var Idcheck = "check" + numResp; 
             if (tipo == "correct") {     
-              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespCorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
+	      $("#Question"+preguntaCont+"").append('<div class="RespCorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');   
               numResp++;
             } else if (tipo == "incorrect") {
-              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespIncorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
+              $("#Question"+preguntaCont+"").append('<div class="RespIncorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
               numResp++;
             }
           }    
@@ -59,6 +66,11 @@ $(document).ready(function() {
     r.readAsText(f);
   });
 
+  
+  $('#parse').click(function() {
+    
+    
+  });
 });
 
 
