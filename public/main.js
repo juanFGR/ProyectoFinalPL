@@ -18,17 +18,22 @@ $(document).ready(function() {
       $('#asignatura').html(result[0].asignatura);
       $('#fecha').html(result[1].fecha);
       var bloquePreguntasResp = "";
+      var numResp = 0;
       for (i = 0; i < result[2].length; i++) {
           var pregunta = result[2][i].pregunta;
           var respuesta = result[2][i].respuesta;
           if (pregunta) {
             bloquePreguntasResp = bloquePreguntasResp.concat('<h3>\n' + pregunta + '\n</h3>');
+            numResp = 1;
           } else if (respuesta) {
             var tipo = result[2][i].type;
-            if (tipo == "correct") {
-              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespCorr"><h3>\n' + respuesta + '\n</h3></div>');
+            var Idcheck = "check" + numResp; 
+            if (tipo == "correct") {     
+              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespCorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
+              numResp++;
             } else if (tipo == "incorrect") {
-              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespIncorr"><h3>\n' + respuesta + '\n</h3></div>');
+              bloquePreguntasResp = bloquePreguntasResp.concat('<div class="RespIncorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
+              numResp++;
             }
           }    
       }
