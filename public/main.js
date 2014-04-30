@@ -21,7 +21,6 @@ $(document).ready(function() {
 	
       $('#asignatura').html(result[0].asignatura);
       $('#fecha').html(result[1].fecha);
-      var bloquePreguntasResp = "";
       var numResp = 0;
       for (i = 0; i < result[2].length; i++) {
 	
@@ -29,7 +28,7 @@ $(document).ready(function() {
           var respuesta = result[2][i].respuesta;
           if (pregunta) {
 	    preguntaCont++;
-	    $("body").append("<div id=Question"+preguntaCont+"></div>");   
+	    $("#preguntas").append("<div class ='questionStyle' id=Question"+preguntaCont+"></div>");   
             $("#Question"+preguntaCont+"").append('<h2>\n' + pregunta + '\n</h2>');
             numResp = 1;
           } else if (respuesta) {
@@ -44,7 +43,6 @@ $(document).ready(function() {
             }
           }    
       }
-      $('#preguntas').html(bloquePreguntasResp);
     
       editor_output.setValue(JSON.stringify(result,undefined,2));
       $('#output').html(JSON.stringify(result,undefined,2));
@@ -67,10 +65,14 @@ $(document).ready(function() {
   });
 
   
-  $('#parse').click(function() {
-    
-    
-  });
+  $("#corregir").click(function(){
+  var val = [];
+        $('.questionStyle').each(function(i){
+          val[i] = $(this).html();
+	  alert($(this).html());
+        });
+		 });
+  
 });
 
 
