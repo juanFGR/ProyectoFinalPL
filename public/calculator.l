@@ -1,10 +1,5 @@
 /* lexical grammar */
-%{
-var reserved_words ={ PI: 'PI', E : 'E', PROCEDURE: 'procedure', VAR: 'var', END: 'end', CONST: 'const', IF: 'if', THEN: 'then', ELSE: 'else', BEGIN: 'begin', CALL: 'call', ODD: 'odd', P: 'p', WHILE: 'while', DO: 'do'}
-
-
-
-%}    
+   
 %%
 
 \s+|\#.*                            /*    skip whitespace and comments */
