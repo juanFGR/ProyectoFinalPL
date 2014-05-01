@@ -21,7 +21,7 @@ $(document).ready(function() {
 	
       $('#asignatura').html(result[0].asignatura);
       $('#fecha').html(result[1].fecha);
-      var numResp = 0;
+      var numResp = 1;
       for (i = 0; i < result[2].length; i++) {
 	
           var pregunta = result[2][i].pregunta;
@@ -30,15 +30,15 @@ $(document).ready(function() {
 	    preguntaCont++;
 	    $("#preguntas").append("<div class ='questionStyle' id=Question"+preguntaCont+"></div>");   
             $("#Question"+preguntaCont+"").append('<h2>\n' + pregunta + '\n</h2>');
-            numResp = 1;
+        
           } else if (respuesta) {
             var tipo = result[2][i].type;
             var Idcheck = "check" + numResp; 
             if (tipo == "correct") {     
-	      $("#Question"+preguntaCont+"").append('<div class="RespCorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');   
+	      $("#Question"+preguntaCont+"").append('<div><input id=' + Idcheck + ' type="checkbox" class="RespCorr">' + respuesta + '</div><br>');   
               numResp++;
             } else if (tipo == "incorrect") {
-              $("#Question"+preguntaCont+"").append('<div class="RespIncorr"><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
+              $("#Question"+preguntaCont+"").append('<div><input id=' + Idcheck + ' type="checkbox" class="RespIncorr">' + respuesta + '</div><br>');
               numResp++;
             }
           }    
@@ -66,12 +66,35 @@ $(document).ready(function() {
 
   
   $("#corregir").click(function(){
-  var val = [];
-        $('.questionStyle').each(function(i){
-          val[i] = $(this).html();
-	  alert($(this).html());
-        });
-		 });
+    var pregCorrec = [];
+    var val = [];
+    var numPreg;
+    $('.questionStyle').each(function(i){
+      val[i] = $(this).html();
+      numPreg = i;  // almaceno el número de pregunta en el que estoy
+      pregCorrec[numPreg] = true; // supongo que la pregunta esta correcta
+      var checkboxId = [];  // array con los identificadores de los checkboxes de cada pregunta
+      checkboxId = val[numPreg].match(/(check\d+)/g); // Guardo en el array todos los identificadores de checkboxes de esa pregunta
+      for (i = 0; i < checkboxId.length; i++) {
+        if (document.getElementById(checkboxId[i]).checked) { // Si esta pulsado y la respuesta es incorrecta pongo la pregunta a mal
+          if (document.getElementById(checkboxId[i]).className == 'RespIncorr') { 
+            pregCorrec[numPreg] = false;
+          } 
+        } else if (document.getElementById(checkboxId[i]).className == 'RespCorr') {   // Si no esta pulsado y la respuesta es correcta también pongo la pregunta a mal
+          pregCorrec[numPreg] = false;
+        } // Si recorro todos lo checkboxes y no se cumple ninguno de los casos anteriores la pregunta se queda en correcta = true
+      }
+    });
+    numPreg = val.length; // Almaceno el número de preguntas totales
+    var numPregCorrec = 0;
+    for (i = 0; i < numPreg; i++) {
+      if (pregCorrec[i] == true) {
+        numPregCorrec++;
+      }
+    }
+    
+    alert("Resultado = " + numPregCorrec + "/" + numPreg);
+  });
   
 });
 
