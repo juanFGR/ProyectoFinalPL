@@ -67,10 +67,18 @@ $(document).ready(function() {
   
   $("#corregir").click(function(){
   var val = [];
-        $('.questionStyle').each(function(i){
-          val[i] = $(this).html();
-	  alert($(this).html());
-        });
+   var result=0,cont=0;
+        $("input:checked").each(function(i){
+	    if($(this).parent().get(0).className === "RespCorr"){
+	      cont++;
+	     $(this).css( "color:#00FF00; !important" );
+	    }
+		
+	    result++;
+	   
+	  });
+	 
+      alert("resultado = "+cont+"/"+result);
 		 });
   
 });
