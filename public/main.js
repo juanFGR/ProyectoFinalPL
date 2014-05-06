@@ -18,13 +18,13 @@ $(document).ready(function() {
       var result = calculator.parse(source);
       
        
-	var preguntaCont=0;
-	
-      $('#asignatura').html(result[0].asignatura);
-      $('#fecha').html(result[1].fecha);
+	  var preguntaCont=0;
+
+      $("#asignatura").html(result[0].asignatura).addClass("SubjectStyle");
+      $("#fecha").html("Fecha: " + result[1].fecha).addClass("DateStyle");
+      
       var numResp = 1;
-      for (i = 0; i < result[2].length; i++) {
-	
+      for (i = 0; i < result[2].length; i++) {	
           var pregunta = result[2][i].pregunta;
           var respuesta = result[2][i].respuesta;
           if (pregunta) {
