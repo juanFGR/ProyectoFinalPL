@@ -18,102 +18,35 @@ Recuerde que una gramática $G$ es una cuaterna $G =(\Sigma,V,P,S)$.
   $V$ que se denomina símbolo de arranque.
 </ol>
 <ol>
-  <li> $\Sigma$ = { ; =, ID, PI, E, +, -, *, /, ^, !, %, (, ), NUMBER, VAR, PROCEDURE, IF, THEN, ELSE, CALL, P, 
-  <l> WHILE, DO, BEGIN, END, ODD, COMMA, COLON } 
-  <li> $V = \{ prog, const, vars, block, process, variables, constants, identificators, statements, statement, expressions \}$
+  <li> $\Sigma$ = {ASIGNA, FECHA, PREGUNTA, RESPUESTA, DOT, RESPUESTACORRECTA, RESPUESTAINCORRECTA} 
+  <li> $V = \{prog, asig, fecha, bloquePreg, respuestas \}$
   <li> Productions:
   <ol>
     <li>
 <pre>
-prog
-    : fatherProcess constsvars block DOT EOF
+
+prog  
+    : asig fecha bloquePreg DOT
     ;
 
-fatherProcess
-    : /* empty */ 
+asig
+    : ASIGNA 
     ;
 
-constsvars
-    : consts vars
+fecha
+    : FECHA
     ;
 
-consts
-    : CONST constants ';' consts
-    | /* empty */
+
+bloquePreg
+    : PREGUNTA respuestas 
+    | PREGUNTA respuestas bloquePreg
     ;
 
-vars
-    : VAR identificators ';' vars
-    | /* empty */
-    ; 
-
-block 
-    : process statements
-    | statements
-    ;
-
-process
-    : PROCEDURE idproc '(' variables ')' COLON constsvars block END ';'
-    | PROCEDURE idproc COLON constsvars block END ';'
-    | process PROCEDURE idproc '(' variables ')' COLON constsvars block END ';'
-    | process PROCEDURE idproc COLON constsvars block END ';'
-    ;
-
-idproc
-    : ID
-    ;
-
-variables
-    : ID
-    | variables COMMA ID
-    ;
-
-constants 
-    : ID '=' NUMBER
-    | constants COMMA ID '=' NUMBER
-    ;
-
-identificators
-    : ID
-    | identificators COMMA ID
-    ;
-
-statements
+respuestas
     : /* empty */
-    | statement statements 
-    ;
-
-statement
-    : ID '=' expression 
-    | ID '=' expression ';'
-    | IF condition THEN statements ELSE statements END ';'
-    | IF condition THEN statements END ';'
-    | CALL ID '(' variables ')' ';'  
-    | CALL ID ';' 
-    | P expression ';'
-    | WHILE condition DO statements END ';'
-    | BEGIN statements END ';'
-    ;
-
-condition
-    : ODD expression
-    | expression COMPARISION expression
-    ;
-
-expression
-    : expression '+' expression
-    | expression '-' expression
-    | expression '*' expression
-    | expression '/' expression
-    | expression '^' expression
-    | expression '!'
-    | expression '%'
-    | '-' expression %prec UMINUS
-    | '(' expression ')'
-    | NUMBER
-    | E
-    | PI
-    | ID 
+    | RESPUESTACORRECTA respuestas
+    | RESPUESTAINCORRECTA respuestas
     ;
 
 </pre>
