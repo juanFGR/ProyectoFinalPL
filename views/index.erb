@@ -42,8 +42,39 @@
   <span><textarea id="output" name="input" autofocus cols="80" rows="10" class="hidden">
      </textarea></span> <!-- Output goes here! -->    
   </div>
+    <Button id="savepdf" ">eeeeeeeeeeeeeeeeeeeee</Button>
 </div>
 
+
+
+    <script type="text/javascript">
+    $( document ).ready(function() {
+      $( "#savepdf" ).click(function() {
+	alert( "Handler for .click() called." );
+	var pdf = new jsPDF('p','in','letter')
+	  source = $('#examen')[0];
+	  pdf.fromHTML(
+	    source // HTML string or DOM elem ref.
+	    , 0.5 // x coord
+	    , 0.5 // y coord
+	    , {
+		'width':7.5
+		, 'elementHandlers': {} // <- empty object
+		}
+		)
+		 pdf.save('Test.pdf');
+	    });
+	  
+
+   
+    });  
+ 
+
+
+
+    </script>
+
+  
 <!-- Script para el CodeMirror -->
 <script>
     // Generar un editor CodeMirror a partir del textarea INPUT (se borra y se reemplaza).
