@@ -50,31 +50,40 @@
     <script type="text/javascript">
     $( document ).ready(function() {
       $( "#savepdf" ).click(function() {
-	var pdf = new jsPDF();
-	pdf.setFont("helvetica");
-	pdf.setFontType("bold");
-	pdf.text(20, 20, $('#asignatura').html());
-	pdf.setFontType("normal");
+        var pdf = new jsPDF();
+        pdf.setFont("helvetica");
+        pdf.setFontType("bold");
+        pdf.setFontSize(22);
+        pdf.text(55, 20, $('#asignatura').html());
+        pdf.setFontType("normal");
 	
-	
-	  pdf.text(120, 30, $('#fecha').html());
-	  
-	  $(".questionStyle").each(function() {
-	    $(this).children().each(function() { 
-	      alert($(this).html());
-	    });
-	  });
 
-	  source = $('#preguntas')[0];
-	  pdf.fromHTML(
-	    source // HTML string or DOM elem ref.
-	    , 40 // x coord
-	    , 50 // y coord
-	    , {
-		'width':100
-		, 'elementHandlers': {} // <- empty object
-		}
-		)
+        pdf.setFontSize(15);
+        pdf.text(150, 35, $('#fecha').html());
+        var linea = 45;
+        $(".questionStyle").each(function() {
+            var pregunta = true;
+            $(this).children().each(function() {
+                if (pregunta == true) {
+                    pdf.setFont("courier");
+                    pdf.setFontType("bold");
+                    pdf.setFontSize(18);
+                    pdf.text(20, linea, $(this).html());
+                    linea = linea + 15;
+                    pregunta = false;
+                }
+                else {
+                    pdf.setFont("courier");
+                    pdf.setFontType("normal");
+                    pdf.setFontSize(15);
+                    if ($(this).html().split(">").length > 1) {
+                        pdf.rect(24, linea - 4, 5, 5); 
+                        pdf.text(30, linea, $(this).html().split(">")[1]);
+                    }
+                    linea = linea + 5;
+                }
+            });
+        });
 		 pdf.save('Test.pdf');
 	    });
 	  
@@ -82,10 +91,7 @@
    
     });  
  
-
-
-
-    </script>
+   </script>
 
   
 <!-- Script para el CodeMirror -->
