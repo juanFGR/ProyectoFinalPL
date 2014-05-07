@@ -60,7 +60,9 @@
 	  pdf.text(120, 30, $('#fecha').html());
 	  
 	  $(".questionStyle").each(function() {
-	    alert($(this).html());
+	    $(this).children().each(function() { 
+	      alert($(this).html());
+	    });
 	  });
 
 	  source = $('#preguntas')[0];
