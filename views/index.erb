@@ -50,15 +50,26 @@
     <script type="text/javascript">
     $( document ).ready(function() {
       $( "#savepdf" ).click(function() {
-	alert( "Handler for .click() called." );
-	var pdf = new jsPDF('p','in','letter')
-	  source = $('#examen')[0];
+	var pdf = new jsPDF();
+	pdf.setFont("helvetica");
+	pdf.setFontType("bold");
+	pdf.text(20, 20, $('#asignatura').html());
+	pdf.setFontType("normal");
+	
+	
+	  pdf.text(120, 30, $('#fecha').html());
+	  
+	  $(".questionStyle").each(function() {
+	    alert($(this).html());
+	  });
+
+	  source = $('#preguntas')[0];
 	  pdf.fromHTML(
 	    source // HTML string or DOM elem ref.
-	    , 0.5 // x coord
-	    , 0.5 // y coord
+	    , 40 // x coord
+	    , 50 // y coord
 	    , {
-		'width':7.5
+		'width':100
 		, 'elementHandlers': {} // <- empty object
 		}
 		)
