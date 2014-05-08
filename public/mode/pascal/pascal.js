@@ -8,15 +8,13 @@
 })(function(CodeMirror) {
 "use strict";
 
-CodeMirror.defineMode("pascal", function() {
+CodeMirror.defineMode("estiloCode", function() {
   function words(str) {
     var obj = {}, words = str.split(" ");
     for (var i = 0; i < words.length; ++i) obj[words[i]] = true;
     return obj;
   }
-  var keywords = words("and array begin case const div do downto else end file for forward integer " +
-                       "boolean char function goto if in label mod nil not of or packed procedure " +
-                       "program record repeat set string then to type until var while with");
+  var keywords = words("/fa /ff /fp /rc /ri .");
   var atoms = {"null": true};
 
   var isOperatorChar = /[+\-*&%=<>!?|\/]/;
@@ -34,23 +32,6 @@ CodeMirror.defineMode("pascal", function() {
     if (ch == "(" && stream.eat("*")) {
       state.tokenize = tokenComment;
       return tokenComment(stream, state);
-    }
-    if (/[\[\]{}\(\),;\:\.]/.test(ch)) {
-      return null;
-    }
-    if (/\d/.test(ch)) {
-      stream.eatWhile(/[\w\.]/);
-      return "number";
-    }
-    if (ch == "/") {
-      if (stream.eat("/")) {
-        stream.skipToEnd();
-        return "comment";
-      }
-    }
-    if (isOperatorChar.test(ch)) {
-      stream.eatWhile(isOperatorChar);
-      return "operator";
     }
     stream.eatWhile(/[\w\$_]/);
     var cur = stream.current();

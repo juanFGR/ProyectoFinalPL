@@ -1,8 +1,13 @@
 $(document).ready(function() {
   var responseID = {}; 
+  $('#verArbol').click(function() {
+    document.getElementById("arbol").className = 'unhidden';
+  });
   $('#parse').click(function() {
     try {
-      document.getElementById("arbol_generado").className = 'unhidden';
+      document.getElementById("savepdf").className = 'btn';
+      document.getElementById("verArbol").className = 'btn';
+      document.getElementById("corregir").className = 'btn';
       function findPos(obj) {
         var curtop = 0;
         if (obj.offsetParent) {
@@ -12,44 +17,47 @@ $(document).ready(function() {
         return [curtop];
         }
       }
-      window.scroll(0,findPos(document.getElementById("arbol_generado")));
+      window.scroll(0,findPos(document.getElementById("examen")));
       var editor = $('.CodeMirror')[0].CodeMirror;
       var source = editor.getValue();
       var result = calculator.parse(source);
-      
-       
-	  var preguntaCont=0;
+
+	    var preguntaCont=0;
 
       $("#asignatura").html(result[0].asignatura).addClass("SubjectStyle");
       $("#fecha").html("Fecha: " + result[1].fecha).addClass("DateStyle");
-      
+      $("#preguntas").empty();
       var numResp = 1;
       for (i = 0; i < result[2].length; i++) {	
           var pregunta = result[2][i].pregunta;
           var respuesta = result[2][i].respuesta;
           if (pregunta) {
-	    preguntaCont++;
-	    $("#preguntas").append("<div class ='questionStyle' id=Question"+preguntaCont+"></div>");   
+	          preguntaCont++;
+	          $("#preguntas").append("<div class ='questionStyle' id=Question"+preguntaCont+"></div>");   
             $("#Question"+preguntaCont+"").append('<h2>\n' + pregunta + '\n</h2>');
-        
           } else if (respuesta) {
             var tipo = result[2][i].type;
             var Idcheck = "check" + numResp; 
             if (tipo == "correct") {     
-	      $("#Question"+preguntaCont+"").append('<div id=div'+numResp+'><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');  
-	      responseID[Idcheck]=1;
-              numResp++;
+	              $("#Question"+preguntaCont+"").append('<div id=div'+numResp+'><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');  
+	              responseID[Idcheck]=1;
+                numResp++;
             } else if (tipo == "incorrect") {
-	        responseID[Idcheck]=0;
-              $("#Question"+preguntaCont+"").append('<div id=div'+numResp+'><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
-              numResp++;
+	              responseID[Idcheck]=0;
+                $("#Question"+preguntaCont+"").append('<div id=div'+numResp+'><input id=' + Idcheck + ' type="checkbox">' + respuesta + '</div><br>');
+                numResp++;
             }
           }    
       }
-    
+      
       editor_output.setValue(JSON.stringify(result,undefined,2));
       $('#output').html(JSON.stringify(result,undefined,2));
     } catch (e) {
+      document.getElementById("savepdf").className = 'hidden';
+      document.getElementById("verArbol").className = 'hidden';
+      document.getElementById("corregir").className = 'hidden';
+      document.getElementById("arbol").className = 'unhidden';
+
       $('#output').html('<div class="error"><pre>\n' + String(e) + '\n</pre></div>');
       editor_output.setValue(String(e));
     }

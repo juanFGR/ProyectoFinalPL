@@ -31,7 +31,7 @@ get '/:selected?' do |selected|
   pp programs
   puts "selected = #{selected}"
   c  = p.program.first(:name => selected)
-  source = if c then c.source else "a = 3-2-1; ." end
+  source = if c then c.source else " Nombre Asignatura /fa \n XX-XX-XXXX /ff \n Pregunta 1 /fp \n   Respuesta 1 /rc \n   Respuesta 2 /ri \n Pregunta 2 /fp \n   Respuesta 1 /ri \n   Respuesta 2 /ri \n   Respuesta 3 /rc \n ." end
   erb :index, 
       :locals => { :programs => programs, :source => source }
 end
@@ -114,7 +114,7 @@ post '/userprograms' do
     puts programs
     pp programs
     c  = p.program.first
-    source = if c then c.source else "a = 3-2-1; ." end
+    source = if c then c.source else " Nombre Asignatura /fa \n XX-XX-XXXX /ff \n Pregunta 1 /fp \n   Respuesta 1 /rc \n   Respuesta 2 /ri \n Pregunta 2 /fp \n   Respuesta 1 /ri \n   Respuesta 2 /ri \n   Respuesta 3 /rc \n ." end
     if programs.count == 0
       flash[:notice] = 
         %Q{<div class="error">Ese usuario no tiene programas almacenados.<br /> </div>}

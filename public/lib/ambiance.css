@@ -2,7 +2,7 @@
 
 /* Color scheme */
 
-.cm-s-ambiance .cm-keyword { color: #cda869; }
+.cm-s-ambiance .cm-keyword { color: #819FF7; }
 .cm-s-ambiance .cm-atom { color: #CF7EA9; }
 .cm-s-ambiance .cm-number { color: #78CF8A; }
 .cm-s-ambiance .cm-def { color: #aac6e3; }
@@ -57,7 +57,7 @@
 .cm-s-ambiance .CodeMirror-linenumber {
   text-shadow: 0px 1px 1px #4d4d4d;
   color: #222;
-  padding: 0 5px;
+  padding: 0 1px;
 }
 
 .cm-s-ambiance .CodeMirror-lines .CodeMirror-cursor {

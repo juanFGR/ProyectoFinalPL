@@ -1,4 +1,4 @@
-<div id="content">
+ <div id="content">
   <nav>
   <ul>
     <div id="flash"><%= flash[:notice] if flash[:notice]%></div> 
@@ -8,21 +8,37 @@
   </ul>
 
   </nav>
-  <p> Para analizar un código introdúzcalo en el cuadro de abajo. </p> 
+  <br>
+
+  <label> Para generar su examen tipo Test deberá seguir la siguiente sintaxis:</label>
+  <br>
+  <ul id="imageList">
+    <li>Nombre de la asignatura <span style='color:#666699;'>/fa</span></li>
+    <li>Fecha del examen <span style='color:#666699;'>/ff</span></li>
+  </ul>
+  <ul id="subImageList">
+    <li>Contenido de la primera pregunta <span style='color:#666699;'>/fp</span></li>
+    <li>Contenido de la primera respuesta <span style='color:#666699;'>/rc (Si es una respuesta correcta)  /ri (si es incorrecta)</span></li>
+    <li>Contenido de la segunda respuesta <span style='color:#666699;'>/rc (Si es una respuesta correcta)  /ri (si es incorrecta)</span></li>
+  </ul>
+  <br>
+  <label> Podrá introducir tantas preguntas y respuestas como desee, terminando en un <span style='color:#666699;'>"."</span> para indicar el final del examen</label>
+  <br>
+  
+  
   <form action="/save" method="post">
-     <textarea id="input" name="input" autofocus cols="80" rows="10">
+     <textarea id="input" name="input" autofocus cols="80" rows="10" class="textAr">
 <%= source %>
      </textarea>
      <br/>
-     <label for="saveas"> Para guardar el código anterior introduzca un nombre para el mismo y presione INTRO: <input id="saveas" type="text" name="fname" title="name" pattern="\w+" /></label>
+     <label for="saveas"> Para guardar el examen introduzca un nombre para el mismo y presione INTRO: <input id="saveas" type="text" name="fname" title="name" pattern="\w+" /></label>
   </form>
   <br/>
   
   
-  <p> O seleccione un fichero con su código. </p>
-  <p>
-    <input type="file" id="examples" />
-  </p>
+  <label> Si lo desea puede cargar un fichero con el examen a generar    </label>
+  <br>
+  <p><input type="file" id="examples" /></p>
   <br>
   <button id="parse" type="button" class="myButton">GENERAR EXAMEN</button>
   <br>
@@ -34,19 +50,21 @@
     
   </div>
   <br>
-  <Button id = "corregir">CORREGIR</Button>
-  <br>
-  <div id="arbol_generado" class="hidden">
-  <p > Árbol generado: </p>    
-  <span><textarea id="output" name="input" autofocus cols="80" rows="10" class="hidden">
-     </textarea></span> <!-- Output goes here! -->    
+  <div margin-left="auto" margin-right= "auto">
+    <table style="width:auto">
+    <tr>
+      <td><Button id = "corregir" class="hidden" text-align="center">Corregir Examen</Button></td>
+      <td><Button id="savepdf" class="hidden">Descargar Examen</Button></td>		
+      <td><Button id = "verArbol" class="hidden">Ver árbol generado</Button></td>
+    </tr>
+    </table>
   </div>
-    <Button id="savepdf" ">Descargar Examen</Button>
-</div>
+  
+  <div id="arbol_generado" class="hidden"><p> Árbol generado: </p></div>
+  <br>
+  <div id="arbol" class="hidden"><span><textarea id="output" name="input" cols="80" rows="10" class="hidden"></textarea></span></div> <!-- Output goes here! --> 
 
-
-
-    <script type="text/javascript">
+  <script type="text/javascript">
     $( document ).ready(function() {
       $( "#savepdf" ).click(function() {
         var pdf = new jsPDF();
@@ -55,8 +73,6 @@
         pdf.setFontSize(22);
         pdf.text(55, 20, $('#asignatura').html());
         pdf.setFontType("normal");
-	
-
         pdf.setFontSize(15);
         pdf.text(150, 35, $('#fecha').html());
         var linea = 45;
@@ -85,16 +101,11 @@
         });
 		 pdf.save('Test.pdf');
 	    });
-	  
-
-   
     });  
- 
    </script>
 
-  
-<!-- Script para el CodeMirror -->
-<script>
+  <!-- Script para el CodeMirror -->
+  <script>
     // Generar un editor CodeMirror a partir del textarea INPUT (se borra y se reemplaza).
     var editor = CodeMirror.fromTextArea(document.getElementById("input"), {
       lineNumbers: true,
@@ -106,7 +117,7 @@
       viewportMargin: Infinity,
       theme: "ambiance"
     });
-</script>
+  </script>
 
-<script type="text/javascript" src="calculator.js"></script>
-<script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="calculator.js"></script>
+  <script type="text/javascript" src="main.js"></script>
