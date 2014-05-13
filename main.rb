@@ -17,6 +17,17 @@ helpers do
   end
 end
 
+get '/id=*' do
+  puts "selected4444444444444444 = #{request.fullpath.split("=")[1]}"
+  p = User.all
+  programs = p.program.all
+  selected = request.fullpath.split("=")[1]
+  c  = p.program.first(:name => selected)
+  source = if c then c.source else "null" end
+  erb :exam, 
+      :locals => { :source => source }
+end
+
 get '/grammar' do
   erb :grammar
 end

@@ -1,1 +1,113 @@
-wwww
+ <div id="content">
+
+
+  
+  
+ <div style ="visibility:hidden;">
+     <textarea  id="input" name="input" autofocus cols="10" rows="10" class="textAr">
+<%= source %>
+     </textarea>
+    </div>
+  <button id="parse" type="button" class="myButton">GENERAR EXAMEN</button>
+  <br>
+  <br>
+  <div id="examen" class="examen">
+    <h2 id="asignatura"></h2>
+    <h2 id="fecha"></h2>
+    <div id="preguntas"></div>
+    
+  </div>
+  <br>
+  <div margin-left="auto" margin-right= "auto">
+    <table style="width:auto">
+    <tr>
+      <td><Button id = "corregir" class="hidden" text-align="center">Corregir Examen</Button></td>
+      <td><Button id="savepdf" class="hidden">Descargar Examen</Button></td>		
+      <td><Button id = "verArbol" class="hidden" style="visibility:hidden;">Ver árbol generado</Button></td>
+    </tr>
+    </table>
+  </div>
+  
+  <div id="arbol_generado" class="hidden"><p> Árbol generado: </p></div>
+  <br>
+  <div id="arbol" class="hidden"><span><textarea id="output" name="input" cols="80" rows="10" class="hidden"></textarea></span></div> <!-- Output goes here! --> 
+
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      $( "#savepdf" ).click(function() {
+        var pdf = new jsPDF();
+        pdf.setFont("helvetica");
+        pdf.setFontType("bold");
+        pdf.setFontSize(22);
+        pdf.text(55, 20, $('#asignatura').html());
+        pdf.setFontType("normal");
+        pdf.setFontSize(15);
+        pdf.text(150, 35, $('#fecha').html());
+        var linea = 45;
+        
+        $(".questionStyle").each(function() {
+            var pregunta = true;
+            $(this).children().each(function() {
+                if (pregunta == true) {
+                    pdf.setFont("courier");
+                    pdf.setFontType("bold");
+                    pdf.setFontSize(18);
+                    
+                    var _stringTemp = $(this).html();
+                    var cont=_stringTemp.length;
+                
+                    while(cont>50){
+		      pdf.text(20, linea, _stringTemp);
+		      linea = linea + 15;
+		      _stringTemp = _stringTemp.substring(50,_stringTemp.length);
+		      cont=_stringTemp.length;
+                    }
+                 
+                    pdf.text(20, linea, _stringTemp);
+                     linea = linea + 10;
+                    
+                    pregunta = false;
+                }
+                else {
+                    pdf.setFont("courier");
+                    pdf.setFontType("normal");
+                    pdf.setFontSize(15);
+                    if ($(this).html().split(">").length > 1) {
+                        pdf.rect(24, linea - 4, 5, 5); 
+                        var _stringTemp = $(this).html().split(">")[1];
+                        var cont=_stringTemp.length;
+                        while(cont>40){
+			  pdf.text(30, linea, _stringTemp);
+			  linea = linea + 5;
+			  _stringTemp = _stringTemp.substring(40,_stringTemp.length);
+			  cont=_stringTemp.length;
+			}
+                        pdf.text(30, linea, _stringTemp);
+                        linea = linea + 5;
+                    }
+                    linea = linea + 5;
+                }
+            });
+        });
+		 pdf.save('Test.pdf');
+	    });
+    });  
+   </script>
+
+  <!-- Script para el CodeMirror -->
+  <script>
+    // Generar un editor CodeMirror a partir del textarea INPUT (se borra y se reemplaza).
+    var editor = CodeMirror.fromTextArea(document.getElementById("input"), {
+      lineNumbers: true,
+      viewportMargin: Infinity,
+      theme: "ambiance"
+    });
+    var editor_output = CodeMirror.fromTextArea(document.getElementById("output"), {
+      lineNumbers: true,
+      viewportMargin: Infinity,
+      theme: "ambiance"
+    });
+  </script>
+
+  <script type="text/javascript" src="calculator.js"></script>
+  <script type="text/javascript" src="main.js"></script>
