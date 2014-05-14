@@ -75,49 +75,78 @@
         pdf.setFontType("normal");
         pdf.setFontSize(15);
         pdf.text(150, 35, $('#fecha').html());
-        var linea = 45;
+        var linea = 40;
         
         $(".questionStyle").each(function() {
             var pregunta = true;
             $(this).children().each(function() {
                 if (pregunta == true) {
-                    pdf.setFont("courier");
+                    pdf.setFont("times");
                     pdf.setFontType("bold");
                     pdf.setFontSize(18);
                     
                     var _stringTemp = $(this).html();
                     var cont=_stringTemp.length;
-                
-                    while(cont>50){
-		      pdf.text(20, linea, _stringTemp);
-		      linea = linea + 15;
-		      _stringTemp = _stringTemp.substring(50,_stringTemp.length);
-		      cont=_stringTemp.length;
+                    var tamTexto = _stringTemp.length;
+                    
+                    var posicionBase = linea;
+                    var largoLinea = 74;
+                    var aumentoLinea = linea + 10;
+                    while (largoLinea < tamTexto) {
+                        if (_stringTemp.charAt(largoLinea) != ' ') {
+                           if (_stringTemp.charAt(largoLinea - 1) != ' ') {
+                                _stringTemp = [_stringTemp.slice(0, largoLinea), "-\n", _stringTemp.slice(largoLinea)].join('');
+                            } else {
+                                _stringTemp = [_stringTemp.slice(0, largoLinea), "\n", _stringTemp.slice(largoLinea)].join('');
+                            }
+                        } else {
+                           _stringTemp = [_stringTemp.slice(0, largoLinea), "\n", _stringTemp.slice(largoLinea + 1)].join('');
+                        }
+                        linea + 15;
+                        largoLinea = largoLinea + 74;
                     }
-                 
-                    pdf.text(20, linea, _stringTemp);
-                     linea = linea + 10;
+                    pdf.text(20, posicionBase, _stringTemp);
+                    linea = linea + 15;
+                      
                     
                     pregunta = false;
                 }
                 else {
-                    pdf.setFont("courier");
+                    pdf.setFont("times");
                     pdf.setFontType("normal");
                     pdf.setFontSize(15);
+                    var margenSup = 0;
                     if ($(this).html().split(">").length > 1) {
-                        pdf.rect(24, linea - 4, 5, 5); 
+                        var posicionBase = linea;
+                        pdf.rect(24, posicionBase - 4, 5, 5); 
+
                         var _stringTemp = $(this).html().split(">")[1];
                         var cont=_stringTemp.length;
-                        while(cont>40){
-			  pdf.text(30, linea, _stringTemp);
-			  linea = linea + 5;
-			  _stringTemp = _stringTemp.substring(40,_stringTemp.length);
-			  cont=_stringTemp.length;
-			}
-                        pdf.text(30, linea, _stringTemp);
+                        var tamTexto = _stringTemp.length;
+                        
+                        var largoLinea = 74;
+
+                        var aumentoLinea = linea + 10;
+                        while (largoLinea < tamTexto) {
+                              if (_stringTemp.charAt(largoLinea) != ' ') {
+                                 if (_stringTemp.charAt(largoLinea - 1) != ' ') {
+                                    _stringTemp = [_stringTemp.slice(0, largoLinea), "-\n", _stringTemp.slice(largoLinea)].join('');
+                                 } else {
+                                    _stringTemp = [_stringTemp.slice(0, largoLinea), "\n", _stringTemp.slice(largoLinea)].join('');
+                                 }
+                              } else {
+                                 _stringTemp = [_stringTemp.slice(0, largoLinea), "\n", _stringTemp.slice(largoLinea + 1)].join('');
+                              }
+                              largoLinea = largoLinea + 74;
+                              linea = linea + 5;
+                        }
+                     
+                        pdf.text(35, posicionBase, _stringTemp);
+                        
                         linea = linea + 5;
+
                     }
-                    linea = linea + 5;
+                     linea = linea + 5;
                 }
             });
         });
